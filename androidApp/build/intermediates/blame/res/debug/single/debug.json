@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "/home/khoiron/Pictures/AzanTime/androidApp/build/intermediates/res/merged/debug/drawable_ic_sound.xml.flat",
+        "source": "/home/khoiron/Pictures/AzanTime/androidApp/src/main/res/drawable/ic_sound.xml"
+    },
+    {
+        "merged": "/home/khoiron/Pictures/AzanTime/androidApp/build/intermediates/res/merged/debug/drawable_ic_ashr.xml.flat",
+        "source": "/home/khoiron/Pictures/AzanTime/androidApp/src/main/res/drawable/ic_ashr.xml"
+    },
+    {
+        "merged": "/home/khoiron/Pictures/AzanTime/androidApp/build/intermediates/res/merged/debug/drawable_ic_sound_disable.xml.flat",
+        "source": "/home/khoiron/Pictures/AzanTime/androidApp/src/main/res/drawable/ic_sound_disable.xml"
+    },
+    {
+        "merged": "/home/khoiron/Pictures/AzanTime/androidApp/build/intermediates/res/merged/debug/drawable_ic_isya.xml.flat",
+        "source": "/home/khoiron/Pictures/AzanTime/androidApp/src/main/res/drawable/ic_isya.xml"
+    },
+    {
+        "merged": "/home/khoiron/Pictures/AzanTime/androidApp/build/intermediates/res/merged/debug/drawable_ic_dhuhur.xml.flat",
+        "source": "/home/khoiron/Pictures/AzanTime/androidApp/src/main/res/drawable/ic_dhuhur.xml"
+    },
+    {
+        "merged": "/home/khoiron/Pictures/AzanTime/androidApp/build/intermediates/res/merged/debug/layout_activity_main.xml.flat",
+        "source": "/home/khoiron/Pictures/AzanTime/androidApp/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/khoiron/Pictures/AzanTime/androidApp/build/intermediates/res/merged/debug/drawable_alarm_off.xml.flat",
+        "source": "/home/khoiron/Pictures/AzanTime/androidApp/src/main/res/drawable/alarm_off.xml"
+    },
+    {
+        "merged": "/home/khoiron/Pictures/AzanTime/androidApp/build/intermediates/res/merged/debug/drawable_ic_maghrib.xml.flat",
+        "source": "/home/khoiron/Pictures/AzanTime/androidApp/src/main/res/drawable/ic_maghrib.xml"
+    },
+    {
+        "merged": "/home/khoiron/Pictures/AzanTime/androidApp/build/intermediates/res/merged/debug/drawable_ic_subuh.xml.flat",
+        "source": "/home/khoiron/Pictures/AzanTime/androidApp/src/main/res/drawable/ic_subuh.xml"
+    }
+]

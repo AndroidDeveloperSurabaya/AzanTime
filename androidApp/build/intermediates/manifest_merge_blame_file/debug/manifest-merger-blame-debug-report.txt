@@ -1,0 +1,46 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.azantime.androidApp"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+8-->/home/khoiron/Pictures/AzanTime/androidApp/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->/home/khoiron/Pictures/AzanTime/androidApp/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->/home/khoiron/Pictures/AzanTime/androidApp/src/main/AndroidManifest.xml:5:5-67
+11-->/home/khoiron/Pictures/AzanTime/androidApp/src/main/AndroidManifest.xml:5:22-64
+12
+13    <application
+13-->/home/khoiron/Pictures/AzanTime/androidApp/src/main/AndroidManifest.xml:7:5-18:19
+14        android:allowBackup="false"
+14-->/home/khoiron/Pictures/AzanTime/androidApp/src/main/AndroidManifest.xml:8:13-40
+15        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+15-->[androidx.core:core:1.3.1] /home/khoiron/.gradle/caches/transforms-2/files-2.1/3f576f289a9b2fd9a07223016296c36a/core-1.3.1/AndroidManifest.xml:24:18-86
+16        android:debuggable="true"
+17        android:extractNativeLibs="false"
+18        android:supportsRtl="true"
+18-->/home/khoiron/Pictures/AzanTime/androidApp/src/main/AndroidManifest.xml:9:13-39
+19        android:testOnly="true"
+20        android:theme="@style/AppTheme" >
+20-->/home/khoiron/Pictures/AzanTime/androidApp/src/main/AndroidManifest.xml:10:13-44
+21        <activity android:name="com.example.azantime.androidApp.MainActivity" >
+21-->/home/khoiron/Pictures/AzanTime/androidApp/src/main/AndroidManifest.xml:11:9-17:20
+21-->/home/khoiron/Pictures/AzanTime/androidApp/src/main/AndroidManifest.xml:11:19-47
+22            <intent-filter>
+22-->/home/khoiron/Pictures/AzanTime/androidApp/src/main/AndroidManifest.xml:12:13-16:29
+23                <action android:name="android.intent.action.MAIN" />
+23-->/home/khoiron/Pictures/AzanTime/androidApp/src/main/AndroidManifest.xml:13:17-68
+23-->/home/khoiron/Pictures/AzanTime/androidApp/src/main/AndroidManifest.xml:13:25-66
+24
+25                <category android:name="android.intent.category.LAUNCHER" />
+25-->/home/khoiron/Pictures/AzanTime/androidApp/src/main/AndroidManifest.xml:15:17-76
+25-->/home/khoiron/Pictures/AzanTime/androidApp/src/main/AndroidManifest.xml:15:27-74
+26            </intent-filter>
+27        </activity>
+28    </application>
+29
+30</manifest>

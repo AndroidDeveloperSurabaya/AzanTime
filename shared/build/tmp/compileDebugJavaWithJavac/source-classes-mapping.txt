@@ -1,0 +1,2 @@
+com/example/azantime/android/BuildConfig.java
+ com.example.azantime.android.BuildConfig

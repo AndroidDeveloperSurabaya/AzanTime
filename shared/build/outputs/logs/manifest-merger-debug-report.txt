@@ -1,0 +1,41 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml:2:1-5:12
+INJECTED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml:2:1-5:12
+INJECTED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml:2:1-5:12
+INJECTED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml:2:1-5:12
+INJECTED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml:2:1-5:12
+INJECTED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml:2:1-5:12
+INJECTED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml:2:1-5:12
+	package
+		ADDED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml:3:5-43
+		INJECTED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml
+		INJECTED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml
+		ADDED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml:2:1-5:12
+		INJECTED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml
+		ADDED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml:2:1-5:12
+		INJECTED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.INTERNET
+ADDED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml:4:5-67
+	android:name
+		ADDED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml:4:22-64
+uses-sdk
+INJECTED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml
+INJECTED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml
+INJECTED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml
+INJECTED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml
+		ADDED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml
+		INJECTED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml
+		ADDED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml
+		INJECTED from /home/khoiron/Pictures/AzanTime/shared/src/androidMain/AndroidManifest.xml
