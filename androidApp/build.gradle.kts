@@ -28,6 +28,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.3.1")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.cardview:cardview:1.0.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.2.0")
 
     implementation("io.ktor:ktor-client-core:$ktorVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
@@ -49,6 +50,6 @@ android {
         }
     }
     buildFeatures {
-        viewBinding = true
+        dataBinding = true
     }
 }

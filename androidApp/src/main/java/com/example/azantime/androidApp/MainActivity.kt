@@ -1,64 +1,56 @@
 package com.example.azantime.androidApp
 
+import android.annotation.SuppressLint
 import java.util.*
 import kotlin.math.abs
 import android.util.Log
 import android.widget.Toast
-import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
+import com.example.azantime.androidApp.databinding.ActivityMainBinding
+import com.example.azantime.androidApp.utils.DateTimeUtils
+import com.example.azantime.androidApp.utils.TimePrayConstant.ASHR
+import com.example.azantime.androidApp.utils.TimePrayConstant.ASHR_TIME_PRAY_POSITION
+import com.example.azantime.androidApp.utils.TimePrayConstant.DHUHR
+import com.example.azantime.androidApp.utils.TimePrayConstant.DHUHR_TIME_PRAY_POSITION
+import com.example.azantime.androidApp.utils.TimePrayConstant.FAJR
+import com.example.azantime.androidApp.utils.TimePrayConstant.FAJR_TIME_PRAY_POSITION
+import com.example.azantime.androidApp.utils.TimePrayConstant.ISHA
+import com.example.azantime.androidApp.utils.TimePrayConstant.ISHA_TIME_PRAY_POSITION
+import com.example.azantime.androidApp.utils.TimePrayConstant.MAGHRIB
+import com.example.azantime.androidApp.utils.TimePrayConstant.MAGHRIB_TIME_PRAY_POSITION
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.MainScope
 import kotlin.collections.ArrayList
 import com.example.azantime.shared.Timings
 import com.example.azantime.shared.DataAzan
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun getLayout(): Int { return R.layout.activity_main }
 
-    private val mainScope = MainScope()
     var data = DataAzan()
-    lateinit var tvDuhurTime  : TextView
-    lateinit var tvAsharTime  : TextView
-    lateinit var tvMagribTime : TextView
-    lateinit var tvIshaTime   : TextView
-    lateinit var tvSubuhTime  : TextView
-    lateinit var tvTimer      : TextView
-    lateinit var tvTodayDate  : TextView
-    lateinit var tvNextPray   : TextView
     var latitude  = -7.2756141
     var longitude = -112.642642
 
-    override fun OnMain() {
-        tvDuhurTime = findViewById(R.id.tv_duhur_time) as TextView
-        tvAsharTime = findViewById(R.id.tv_asar_time) as TextView
-        tvMagribTime = findViewById(R.id.tv_magrib_time) as TextView
-        tvIshaTime = findViewById(R.id.tv_isha_time) as TextView
-        tvSubuhTime = findViewById(R.id.tv_subuh_time) as TextView
-        tvTodayDate = findViewById(R.id.tv_today_date) as TextView
-        tvTimer     = findViewById(R.id.tv_timer) as TextView
-        tvNextPray  = findViewById(R.id.tv_next_pray) as TextView
-
+    override fun onMain() {
         getDataAzan()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun getDataAzan() {
-        tvTodayDate.text = "${getDate("MMMM dd , yyyy")}. 27 Rabi ul Awal, 1442"
-        mainScope.launch {
+        binding.tvTodayDate.text = "${DateTimeUtils.getDate("MMMM dd , yyyy")}. 27 Rabi ul Awal, 1442"
+        lifecycleScope.launch {
             kotlin.runCatching {
-                data.getLaunches(System.currentTimeMillis(),latitude,longitude)
-            }.onSuccess {
+                data.getLaunches(System.currentTimeMillis(), latitude, longitude)
+            }.onSuccess { azanEntity ->
+                binding.tvSubuhTime.text = azanEntity.data?.timings?.fajr.toString()
+                binding.tvDhuhrTime.text = azanEntity.data?.timings?.dhuhr.toString()
+                binding.tvAshrTime.text = azanEntity.data?.timings?.asr.toString()
+                binding.tvMaghribTime.text = azanEntity.data?.timings?.maghrib.toString()
+                binding.tvIsyaTime.text = azanEntity.data?.timings?.isha.toString()
 
-                tvSubuhTime.text = it.data?.timings?.fajr.toString()
-                tvDuhurTime.text = it.data?.timings?.dhuhr.toString()
-                tvAsharTime.text = it.data?.timings?.asr.toString()
-                tvMagribTime.text = it.data?.timings?.maghrib.toString()
-                tvIshaTime.text = it.data?.timings?.isha.toString()
-
-                setTimeNextPray(it.data?.timings)
-            }.onFailure {
-                Log.e("TAG",it.localizedMessage)
-                Toast.makeText(this@MainActivity, it.localizedMessage, Toast.LENGTH_SHORT).show()
-
+                setTimeNextPray(azanEntity.data?.timings)
+            }.onFailure { failure ->
+                Log.e("TAG", failure.localizedMessage)
+                Toast.makeText(this@MainActivity, failure.localizedMessage, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -79,15 +71,15 @@ class MainActivity : BaseActivity() {
         var currentTimePray = getDeltaLastPrayerTime(dataPrayer,timePrayPosition)
         var currentTimeBeforePray = getDeltaLastPrayerTime(dataPrayer,currentIndex)
 
-        setProgresBar(timePrayPosition,currentTimeBeforePray.toInt(),currentTimePray.toInt())
+        setProgressBar(timePrayPosition,currentTimeBeforePray.toInt(),currentTimePray.toInt())
         setNextPray(timePrayPosition)
     }
 
 
-    private fun setProgresBar(timePrayPosition: Int,currentTimePray: Int,timecount: Int) {
+    private fun setProgressBar(timePrayPosition: Int,currentTimePray: Int,timecount: Int) {
 
         //timecount = millisecond
-        CountdownTime().countDown(timecount,object : CountdownTime.callBackCountDownTime{
+        CountdownTime().countDown(timecount,object : CountdownTime.CallBackCountDownTime{
             override fun onTick(millisUntilFinished: Long, hours: Int, minutes: Int, seconds: Int) {
                 val presentage = currentTimePray.toFloat() / (currentTimePray.toFloat()+millisUntilFinished.toFloat()) * 100
 
@@ -96,14 +88,14 @@ class MainActivity : BaseActivity() {
                     setNextPray(timePrayPosition)
                 }
 
-                else if(hours==0&&minutes==0){
-                   tvTimer.text = "${seconds} SECOND REMAINING"
+                else if(hours==0 && minutes == 0){
+                   binding.tvTimer.text = "${seconds} SECOND REMAINING"
                 }
                 else if(hours==0){
-                    tvTimer.text = "${minutes} MINUTES ${seconds} SECOND REMAINING"
+                    binding.tvTimer.text = "${minutes} MINUTES ${seconds} SECOND REMAINING"
                 }
                 else {
-                    tvTimer.text = "${hours} HOURS ${minutes} MINUTES ${seconds} SECOND REMAINING"
+                    binding.tvTimer.text = "${hours} HOURS ${minutes} MINUTES ${seconds} SECOND REMAINING"
                 }
             }
 
@@ -114,22 +106,13 @@ class MainActivity : BaseActivity() {
     }
 
     private fun setNextPray(timePrayPosition: Int) {
-        when(timePrayPosition){
-            0 -> {
-                tvNextPray.text = "Fajr"
-            }
-            1 -> {
-                tvNextPray.text = "Dhuhr"
-            }
-            2 -> {
-                tvNextPray.text = "Asr"
-            }
-            3 -> {
-                tvNextPray.text = "sunset"
-            }
-            4 -> {
-                tvNextPray.text = "isha"
-            }
+        binding.tvNextPray.text = when (timePrayPosition) {
+            FAJR_TIME_PRAY_POSITION -> FAJR
+            DHUHR_TIME_PRAY_POSITION -> DHUHR
+            ASHR_TIME_PRAY_POSITION -> ASHR
+            MAGHRIB_TIME_PRAY_POSITION -> MAGHRIB
+            ISHA_TIME_PRAY_POSITION -> ISHA
+            else -> ""
         }
     }
 
@@ -168,13 +151,6 @@ class MainActivity : BaseActivity() {
         if(nextTimePray==0){
             calendar.add(Calendar.DATE,1)
         }
-        val deltaMillis = abs(calendar.timeInMillis - timeNow.timeInMillis)
-        return deltaMillis
-    }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mainScope.cancel()
+        return abs(calendar.timeInMillis - timeNow.timeInMillis)
     }
 }

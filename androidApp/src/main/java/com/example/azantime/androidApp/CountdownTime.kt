@@ -4,7 +4,7 @@ import android.os.CountDownTimer
 
 class CountdownTime {
 
-    fun countDown(deltaTime: Int,callBackCountDownTime: callBackCountDownTime) {
+    fun countDown(deltaTime: Int,callBackCountDownTime: CallBackCountDownTime) {
         val mCountDownTimer: CountDownTimer
         var i = 0
 
@@ -38,7 +38,7 @@ class CountdownTime {
         return ((millisUntilFinished / 1000) % 60).toInt()
     }
 
-    interface callBackCountDownTime{
+    interface CallBackCountDownTime{
         fun onTick(millisUntilFinished:Long,hours:Int,minutes:Int,seconds:Int)
         fun onFinish()
     }
