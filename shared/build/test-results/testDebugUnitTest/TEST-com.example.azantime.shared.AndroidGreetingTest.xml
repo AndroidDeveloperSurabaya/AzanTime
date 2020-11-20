@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.azantime.shared.AndroidGreetingTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-11-16T00:24:30" hostname="khoiron" time="0.033">
-  <properties/>
-  <testcase name="testExample" classname="com.example.azantime.shared.AndroidGreetingTest" time="0.033"/>
-  <system-out><![CDATA[2020-11-16T00:24:30.827Z
-1605486270827
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

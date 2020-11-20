@@ -1,43 +1,43 @@
 package com.example.azantime.androidApp
 
-import java.util.*
 import android.util.Log
 import android.os.Bundle
-import android.view.Window
 import android.widget.Toast
 import android.content.Intent
 import android.content.Context
 import android.app.AlertDialog
-import android.view.WindowManager
-import java.text.SimpleDateFormat
 import android.net.ConnectivityManager
 import android.annotation.SuppressLint
+import android.view.Window
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 
 
 /**
  * Created by khoiron on 18/02/18.
  */
 
-abstract class BaseActivity : AppCompatActivity(){
+abstract class BaseActivity<B: ViewDataBinding> : AppCompatActivity(){
 
     protected var statusInternet : Boolean = false
+    protected lateinit var binding: B
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(getLayout())
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        binding = DataBindingUtil.setContentView(this, getLayout())
 
-        OnMain()
+        onMain()
     }
 
 
-    abstract fun OnMain()
+    abstract fun onMain()
     abstract fun getLayout(): Int
 
-
-    fun setLog(message: String){
+    protected fun setLog(message: String){
         Log.e("Test",message)
     }
 
@@ -49,7 +49,7 @@ abstract class BaseActivity : AppCompatActivity(){
         AlertDialog.Builder(this)
                 .setMessage("Apa Anda yakin ingin menutup aplikasi?")
                 .setCancelable(false)
-                .setPositiveButton("IYA") { dialog, id ->
+                .setPositiveButton("IYA") { _, _ ->
                     val exit = Intent(Intent.ACTION_MAIN)
 
                     exit.addCategory(Intent.CATEGORY_HOME)
@@ -66,7 +66,7 @@ abstract class BaseActivity : AppCompatActivity(){
         AlertDialog.Builder(this)
                 .setMessage(message)
                 .setCancelable(false)
-                .setPositiveButton("IYA") { dialog, id ->
+                .setPositiveButton("IYA") { _, _ ->
                     val exit = Intent(Intent.ACTION_MAIN)
 
                     exit.addCategory(Intent.CATEGORY_HOME)
@@ -79,48 +79,12 @@ abstract class BaseActivity : AppCompatActivity(){
                 .show()
     }
 
-    fun gotoActivity(clas : Class<*>?){
-        startActivity(Intent(this,clas))
-    }
-
-    fun gotoActivityWithBundle(clas : Class<*>?,bundle: Bundle){
-        var intent = Intent(this,clas)
-        intent.putExtra("data",bundle)
-        startActivity(intent)
-    }
-
-    fun getDate():String{
-        val calendar = Calendar.getInstance()
-        val mdformat = SimpleDateFormat("dd/MM/yyyy")
-        val strDate  = mdformat.format(calendar.getTime())
-        return strDate
-    }
-
-    fun getDate(formatOutput:String):String{
-        val calendar = Calendar.getInstance()
-        val mdformat = SimpleDateFormat(formatOutput)
-        val strDate  = mdformat.format(calendar.getTime())
-        return strDate
-    }
-
-    fun getDate(dateString:String,formatInput:String,formatOutput:String):String{
-        val calendar = Calendar.getInstance()
-        calendar.time = SimpleDateFormat(formatInput).parse(dateString)
-        val mdformat = SimpleDateFormat(formatOutput)
-        val strDate  = mdformat.format(calendar.getTime())
-        return strDate
-    }
-
     @SuppressLint("MissingPermission")
-    fun checkInterConection(){
-        var connMgr = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        var networkinfo = connMgr.activeNetworkInfo
-        if (networkinfo != null && networkinfo.isConnected()) {
-            statusInternet = true
-            setLog(statusInternet.toString())
-        } else {
-            statusInternet = false
-        }
+    fun checkInterConnection(){
+        val connMgr = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connMgr.activeNetworkInfo
+
+        statusInternet = networkInfo != null && networkInfo.isConnected
     }
 
 }
