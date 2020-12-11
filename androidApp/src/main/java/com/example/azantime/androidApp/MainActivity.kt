@@ -17,9 +17,8 @@ import com.example.azantime.androidApp.utils.TimePrayConstant.ISHA_TIME_PRAY_POS
 import com.example.azantime.androidApp.utils.TimePrayConstant.MAGHRIB
 import com.example.azantime.androidApp.utils.TimePrayConstant.MAGHRIB_TIME_PRAY_POSITION
 import com.example.azantime.shared.entity.Timings
-import com.example.azantime.shared.api.AzanAPI
+import com.example.azantime.shared.usecase.GetPrayerTimesUseCase
 import kotlinx.coroutines.launch
-import org.kodein.di.instance
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.abs
@@ -29,7 +28,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     var latitude = -7.2756141
     var longitude = -112.642642
 
-    private val azanAPI: AzanAPI by instance()
+    private val useCase: GetPrayerTimesUseCase = GetPrayerTimesUseCase()
 
     override fun onMain() {
         getDataAzan()
@@ -42,7 +41,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         viewBinding.tvTodayDate.text = "${DateTimeUtils.getDate("MMMM dd , yyyy")}. 27 Rabi ul Awal, 1442"
         lifecycleScope.launch {
             kotlin.runCatching {
-                azanAPI.getPrayerTimes(System.currentTimeMillis(), latitude, longitude)
+                useCase.execute(GetPrayerTimesUseCase.Input(
+                    System.currentTimeMillis(),
+                    latitude,
+                    longitude
+                ))
             }.onSuccess { azanEntity ->
                 viewBinding.tvSubuhTime.text = azanEntity.data?.timings?.fajr.toString()
                 viewBinding.tvDhuhrTime.text = azanEntity.data?.timings?.dhuhr.toString()
