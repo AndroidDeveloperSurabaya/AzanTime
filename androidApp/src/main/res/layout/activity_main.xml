@@ -1,325 +1,319 @@
-<?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main_view"
+    <TextView
+        android:id="@+id/surabaya_in"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="17dp"
+        android:layout_marginTop="28dp"
+        android:gravity="center"
+        android:text="@string/data_dummi_place"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/surabaya_in"
-            android:layout_width="match_parent"
-            android:layout_height="17dp"
-            android:layout_marginTop="28dp"
-            android:text="@string/data_dummi_place"
-            android:gravity="center"
-            app:layout_constraintTop_toTopOf="parent"/>
+    <ImageView
+        android:id="@+id/image_time"
+        android:layout_width="73dp"
+        android:layout_height="73dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="89dp"
+        android:src="@drawable/ic_maghrib"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/surabaya_in"
+        tools:ignore="ContentDescription" />
 
-        <ImageView
-            android:id="@+id/image_time"
-            android:layout_width="73dp"
-            android:layout_height="73dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_maghrib"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="89dp"
-            app:layout_constraintTop_toBottomOf="@id/surabaya_in"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="ContentDescription" />
+    <TextView
+        android:id="@+id/tv_next_pray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/maghrib"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_time"
+        app:layout_constraintTop_toTopOf="@id/image_time" />
 
-        <TextView
-            android:id="@+id/tv_next_pray"
-            android:layout_gravity="center"
-            android:textSize="24sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/maghrib"
-            app:layout_constraintTop_toTopOf="@id/image_time"
-            app:layout_constraintStart_toEndOf="@id/image_time"
-            app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+        android:id="@+id/tv_timer"
+        android:layout_width="146dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:gravity="center"
+        android:text="@string/data_dummi_remaining"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_time"
+        app:layout_constraintTop_toBottomOf="@id/tv_next_pray" />
 
-        <TextView
-            android:id="@+id/tv_timer"
-            android:layout_marginTop="14dp"
-            android:gravity="center"
-            android:layout_width="146dp"
-            android:layout_height="wrap_content"
-            android:text="@string/data_dummi_remaining"
-            android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@id/tv_next_pray"
-            app:layout_constraintStart_toEndOf="@id/image_time"
-            app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+        android:id="@+id/tv_today_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_timer" />
 
-        <TextView
-            android:id="@+id/tv_today_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:layout_marginTop="60dp"
-            android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@id/tv_timer"/>
+    <ImageView
+        android:id="@+id/image_fajr"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="36dp"
+        android:src="@drawable/ic_subuh"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_today_date"
+        tools:ignore="ContentDescription" />
 
-        <ImageView
-            android:id="@+id/image_fajr"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@drawable/ic_subuh"
-            android:layout_marginTop="36dp"
-            android:layout_marginStart="28dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_today_date"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="ContentDescription" />
+    <TextView
+        android:id="@+id/tv_subuh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/image_fajr"
+        app:layout_constraintStart_toEndOf="@id/image_fajr"
+        app:layout_constraintTop_toTopOf="@id/image_fajr" />
 
-        <TextView
-            android:id="@+id/tv_subuh"
-            android:layout_width="wrap_content"
-            android:textSize="16sp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            app:layout_constraintTop_toTopOf="@id/image_fajr"
-            app:layout_constraintBottom_toBottomOf="@id/image_fajr"
-            app:layout_constraintStart_toEndOf="@id/image_fajr"/>
+    <TextView
+        android:id="@+id/tv_subuh_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_subuh"
+        app:layout_constraintEnd_toStartOf="@id/image_sound_subuh"
+        app:layout_constraintTop_toTopOf="@id/tv_subuh" />
 
-        <TextView
-            android:id="@+id/tv_subuh_time"
-            android:layout_width="wrap_content"
-            android:textSize="16sp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintTop_toTopOf="@id/tv_subuh"
-            app:layout_constraintBottom_toBottomOf="@id/tv_subuh"
-            app:layout_constraintEnd_toStartOf="@id/image_sound_subuh"/>
+    <ImageView
+        android:id="@+id/image_sound_subuh"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/ic_sound"
+        app:layout_constraintBottom_toBottomOf="@id/image_fajr"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/image_fajr"
+        tools:ignore="ContentDescription" />
 
-        <ImageView
-            android:id="@+id/image_sound_subuh"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@drawable/ic_sound"
-            android:layout_marginEnd="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/image_fajr"
-            app:layout_constraintBottom_toBottomOf="@id/image_fajr"
-            tools:ignore="ContentDescription" />
+    <View
+        android:id="@+id/divider_subuh"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="28dp"
+        android:background="#E5E5E5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_subuh" />
 
-        <View
-            android:id="@+id/divider_subuh"
-            android:layout_marginTop="10dp"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="#E5E5E5"
-            android:layout_marginLeft="28dp"
-            android:layout_marginRight="28dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_subuh"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+    <ImageView
+        android:id="@+id/image_dhuhr"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_dhuhur"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider_subuh"
+        tools:ignore="ContentDescription" />
 
-        <ImageView
-            android:id="@+id/image_dhuhr"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@drawable/ic_dhuhur"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="28dp"
-            app:layout_constraintTop_toBottomOf="@id/divider_subuh"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="ContentDescription" />
+    <TextView
+        android:id="@+id/tv_dhuhr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/image_dhuhr"
+        app:layout_constraintStart_toEndOf="@id/image_dhuhr"
+        app:layout_constraintTop_toTopOf="@id/image_dhuhr" />
 
-        <TextView
-            android:id="@+id/tv_dhuhr"
-            android:layout_width="wrap_content"
-            android:textSize="16sp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            app:layout_constraintTop_toTopOf="@id/image_dhuhr"
-            app:layout_constraintBottom_toBottomOf="@id/image_dhuhr"
-            app:layout_constraintStart_toEndOf="@id/image_dhuhr"/>
+    <TextView
+        android:id="@+id/tv_dhuhr_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_dhuhr"
+        app:layout_constraintEnd_toStartOf="@id/image_sound_duhur"
+        app:layout_constraintTop_toTopOf="@id/tv_dhuhr" />
 
-        <TextView
-            android:id="@+id/tv_dhuhr_time"
-            android:layout_width="wrap_content"
-            android:textSize="16sp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintTop_toTopOf="@id/tv_dhuhr"
-            app:layout_constraintBottom_toBottomOf="@id/tv_dhuhr"
-            app:layout_constraintEnd_toStartOf="@id/image_sound_duhur"/>
+    <ImageView
+        android:id="@+id/image_sound_duhur"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/ic_sound"
+        app:layout_constraintBottom_toBottomOf="@id/image_dhuhr"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/image_dhuhr"
+        tools:ignore="ContentDescription" />
 
-        <ImageView
-            android:id="@+id/image_sound_duhur"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@drawable/ic_sound"
-            android:layout_marginEnd="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/image_dhuhr"
-            app:layout_constraintBottom_toBottomOf="@id/image_dhuhr"
-            tools:ignore="ContentDescription" />
+    <View
+        android:id="@+id/divider_dhuhr"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="28dp"
+        android:background="#E5E5E5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_dhuhr" />
 
-        <View
-            android:id="@+id/divider_dhuhr"
-            android:layout_marginTop="10dp"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="#E5E5E5"
-            android:layout_marginLeft="28dp"
-            android:layout_marginRight="28dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_dhuhr"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+    <ImageView
+        android:id="@+id/image_ashr"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_ashr"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider_dhuhr"
+        tools:ignore="ContentDescription" />
 
-        <ImageView
-            android:id="@+id/image_ashr"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@drawable/ic_ashr"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="28dp"
-            app:layout_constraintTop_toBottomOf="@id/divider_dhuhr"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="ContentDescription" />
+    <TextView
+        android:id="@+id/tv_ashr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/image_ashr"
+        app:layout_constraintStart_toEndOf="@id/image_ashr"
+        app:layout_constraintTop_toTopOf="@id/image_ashr" />
 
-        <TextView
-            android:id="@+id/tv_ashr"
-            android:layout_width="wrap_content"
-            android:textSize="16sp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            app:layout_constraintTop_toTopOf="@id/image_ashr"
-            app:layout_constraintBottom_toBottomOf="@id/image_ashr"
-            app:layout_constraintStart_toEndOf="@id/image_ashr"/>
+    <TextView
+        android:id="@+id/tv_ashr_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_ashr"
+        app:layout_constraintEnd_toStartOf="@id/image_sound_ashr"
+        app:layout_constraintTop_toTopOf="@id/tv_ashr" />
 
-        <TextView
-            android:id="@+id/tv_ashr_time"
-            android:layout_width="wrap_content"
-            android:textSize="16sp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintTop_toTopOf="@id/tv_ashr"
-            app:layout_constraintBottom_toBottomOf="@id/tv_ashr"
-            app:layout_constraintEnd_toStartOf="@id/image_sound_ashr"/>
+    <ImageView
+        android:id="@+id/image_sound_ashr"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/ic_sound"
+        app:layout_constraintBottom_toBottomOf="@id/image_ashr"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/image_ashr"
+        tools:ignore="ContentDescription" />
 
-        <ImageView
-            android:id="@+id/image_sound_ashr"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@drawable/ic_sound"
-            android:layout_marginEnd="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/image_ashr"
-            app:layout_constraintBottom_toBottomOf="@id/image_ashr"
-            tools:ignore="ContentDescription" />
+    <View
+        android:id="@+id/divider_ashr"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="28dp"
+        android:background="#E5E5E5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_ashr" />
 
-        <View
-            android:id="@+id/divider_ashr"
-            android:layout_marginTop="10dp"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="#E5E5E5"
-            android:layout_marginLeft="28dp"
-            android:layout_marginRight="28dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_ashr"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+    <ImageView
+        android:id="@+id/image_maghrib"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_maghrib"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider_ashr"
+        tools:ignore="ContentDescription" />
 
-        <ImageView
-            android:id="@+id/image_maghrib"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@drawable/ic_maghrib"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="28dp"
-            app:layout_constraintTop_toBottomOf="@id/divider_ashr"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="ContentDescription" />
+    <TextView
+        android:id="@+id/tv_maghrib"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/image_maghrib"
+        app:layout_constraintStart_toEndOf="@id/image_maghrib"
+        app:layout_constraintTop_toTopOf="@id/image_maghrib" />
 
-        <TextView
-            android:id="@+id/tv_maghrib"
-            android:layout_width="wrap_content"
-            android:textSize="16sp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            app:layout_constraintTop_toTopOf="@id/image_maghrib"
-            app:layout_constraintBottom_toBottomOf="@id/image_maghrib"
-            app:layout_constraintStart_toEndOf="@id/image_maghrib"/>
+    <TextView
+        android:id="@+id/tv_maghrib_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_maghrib"
+        app:layout_constraintEnd_toStartOf="@id/image_sound_maghrib"
+        app:layout_constraintTop_toTopOf="@id/tv_maghrib" />
 
-        <TextView
-            android:id="@+id/tv_maghrib_time"
-            android:layout_width="wrap_content"
-            android:textSize="16sp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintTop_toTopOf="@id/tv_maghrib"
-            app:layout_constraintBottom_toBottomOf="@id/tv_maghrib"
-            app:layout_constraintEnd_toStartOf="@id/image_sound_maghrib"/>
+    <ImageView
+        android:id="@+id/image_sound_maghrib"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/ic_sound"
+        app:layout_constraintBottom_toBottomOf="@id/image_maghrib"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/image_maghrib"
+        tools:ignore="ContentDescription" />
 
-        <ImageView
-            android:id="@+id/image_sound_maghrib"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@drawable/ic_sound"
-            android:layout_marginEnd="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/image_maghrib"
-            app:layout_constraintBottom_toBottomOf="@id/image_maghrib"
-            tools:ignore="ContentDescription" />
+    <View
+        android:id="@+id/divider_maghrib"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="28dp"
+        android:background="#E5E5E5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_maghrib" />
 
-        <View
-            android:id="@+id/divider_maghrib"
-            android:layout_marginTop="10dp"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="#E5E5E5"
-            android:layout_marginLeft="28dp"
-            android:layout_marginRight="28dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_maghrib"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+    <ImageView
+        android:id="@+id/image_isya"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_isya"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider_maghrib"
+        tools:ignore="ContentDescription" />
 
-        <ImageView
-            android:id="@+id/image_isya"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@drawable/ic_isya"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="28dp"
-            app:layout_constraintTop_toBottomOf="@id/divider_maghrib"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="ContentDescription" />
+    <TextView
+        android:id="@+id/tv_isya"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/image_isya"
+        app:layout_constraintStart_toEndOf="@id/image_isya"
+        app:layout_constraintTop_toTopOf="@id/image_isya" />
 
-        <TextView
-            android:id="@+id/tv_isya"
-            android:layout_width="wrap_content"
-            android:textSize="16sp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            app:layout_constraintTop_toTopOf="@id/image_isya"
-            app:layout_constraintBottom_toBottomOf="@id/image_isya"
-            app:layout_constraintStart_toEndOf="@id/image_isya"/>
+    <TextView
+        android:id="@+id/tv_isya_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_isya"
+        app:layout_constraintEnd_toStartOf="@id/image_sound_isya"
+        app:layout_constraintTop_toTopOf="@id/tv_isya" />
 
-        <TextView
-            android:id="@+id/tv_isya_time"
-            android:layout_width="wrap_content"
-            android:textSize="16sp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintTop_toTopOf="@id/tv_isya"
-            app:layout_constraintBottom_toBottomOf="@id/tv_isya"
-            app:layout_constraintEnd_toStartOf="@id/image_sound_isya"/>
+    <ImageView
+        android:id="@+id/image_sound_isya"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/ic_sound"
+        app:layout_constraintBottom_toBottomOf="@id/image_isya"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/image_isya"
+        tools:ignore="ContentDescription" />
 
-        <ImageView
-            android:id="@+id/image_sound_isya"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@drawable/ic_sound"
-            android:layout_marginEnd="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/image_isya"
-            app:layout_constraintBottom_toBottomOf="@id/image_isya"
-            tools:ignore="ContentDescription" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

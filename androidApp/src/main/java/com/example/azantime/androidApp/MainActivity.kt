@@ -24,7 +24,6 @@ import com.example.azantime.shared.Timings
 import com.example.azantime.shared.DataAzan
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
-    override fun getLayout(): Int { return R.layout.activity_main }
 
     var data = DataAzan()
     var latitude  = -7.2756141
@@ -33,19 +32,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onMain() {
         getDataAzan()
     }
-
+    
+    override fun bindLayout(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
+    
     @SuppressLint("SetTextI18n")
     private fun getDataAzan() {
-        binding.tvTodayDate.text = "${DateTimeUtils.getDate("MMMM dd , yyyy")}. 27 Rabi ul Awal, 1442"
+        viewBinding.tvTodayDate.text = "${DateTimeUtils.getDate("MMMM dd , yyyy")}. 27 Rabi ul Awal, 1442"
         lifecycleScope.launch {
             kotlin.runCatching {
                 data.getLaunches(System.currentTimeMillis(), latitude, longitude)
             }.onSuccess { azanEntity ->
-                binding.tvSubuhTime.text = azanEntity.data?.timings?.fajr.toString()
-                binding.tvDhuhrTime.text = azanEntity.data?.timings?.dhuhr.toString()
-                binding.tvAshrTime.text = azanEntity.data?.timings?.asr.toString()
-                binding.tvMaghribTime.text = azanEntity.data?.timings?.maghrib.toString()
-                binding.tvIsyaTime.text = azanEntity.data?.timings?.isha.toString()
+                viewBinding.tvSubuhTime.text = azanEntity.data?.timings?.fajr.toString()
+                viewBinding.tvDhuhrTime.text = azanEntity.data?.timings?.dhuhr.toString()
+                viewBinding.tvAshrTime.text = azanEntity.data?.timings?.asr.toString()
+                viewBinding.tvMaghribTime.text = azanEntity.data?.timings?.maghrib.toString()
+                viewBinding.tvIsyaTime.text = azanEntity.data?.timings?.isha.toString()
 
                 setTimeNextPray(azanEntity.data?.timings)
             }.onFailure { failure ->
@@ -89,13 +90,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 }
 
                 else if(hours==0 && minutes == 0){
-                   binding.tvTimer.text = "${seconds} SECOND REMAINING"
+                   viewBinding.tvTimer.text = "${seconds} SECOND REMAINING"
                 }
                 else if(hours==0){
-                    binding.tvTimer.text = "${minutes} MINUTES ${seconds} SECOND REMAINING"
+                    viewBinding.tvTimer.text = "${minutes} MINUTES ${seconds} SECOND REMAINING"
                 }
                 else {
-                    binding.tvTimer.text = "${hours} HOURS ${minutes} MINUTES ${seconds} SECOND REMAINING"
+                    viewBinding.tvTimer.text = "${hours} HOURS ${minutes} MINUTES ${seconds} SECOND REMAINING"
                 }
             }
 
@@ -106,7 +107,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun setNextPray(timePrayPosition: Int) {
-        binding.tvNextPray.text = when (timePrayPosition) {
+        viewBinding.tvNextPray.text = when (timePrayPosition) {
             FAJR_TIME_PRAY_POSITION -> FAJR
             DHUHR_TIME_PRAY_POSITION -> DHUHR
             ASHR_TIME_PRAY_POSITION -> ASHR
