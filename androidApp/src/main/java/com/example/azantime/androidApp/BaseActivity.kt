@@ -12,16 +12,23 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.DIContext
+import org.kodein.di.android.closestDI
+import org.kodein.di.bindings.Reference
+import org.kodein.di.diContext
 
 
 /**
  * Created by khoiron on 18/02/18.
  */
 
-abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
+abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), DIAware {
 	
 	protected var statusInternet: Boolean = false
 	protected val viewBinding: VB by lazy { bindLayout() }
+	override val di: DI by closestDI()
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
