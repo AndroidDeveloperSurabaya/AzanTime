@@ -138,19 +138,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun getDeltaLastPrayerTime(dataPrayer : ArrayList<String>, nextTimePray:Int): Long {
 
-        val timeArray = dataPrayer.get(nextTimePray).split(":")
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, timeArray[0].toInt())
-        calendar.set(Calendar.MINUTE, timeArray[1].toInt())
-        calendar.set(Calendar.SECOND,0)
-
-
-        val timeNow = Calendar.getInstance()
-
-        // when isha'  (isha' today and subuh next day)
-        if(nextTimePray==0){
-            calendar.add(Calendar.DATE,1)
-        }
-        return abs(calendar.timeInMillis - timeNow.timeInMillis)
+        return dataPrayer.getOrNull(nextTimePray)?.split(":")?.let { timeArray ->
+            val calendar = Calendar.getInstance()
+            calendar.set(Calendar.HOUR_OF_DAY, timeArray[0].toInt())
+            calendar.set(Calendar.MINUTE, timeArray[1].toInt())
+            calendar.set(Calendar.SECOND,0)
+    
+    
+            val timeNow = Calendar.getInstance()
+    
+            // when isha'  (isha' today and subuh next day)
+            if(nextTimePray==0){
+                calendar.add(Calendar.DATE,1)
+            }
+            abs(calendar.timeInMillis - timeNow.timeInMillis)
+        } ?: 0L
     }
 }
