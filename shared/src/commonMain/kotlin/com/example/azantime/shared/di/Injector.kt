@@ -6,5 +6,8 @@ import kotlin.native.concurrent.ThreadLocal
 
 @ThreadLocal
 val Injector = DI {
-    import(networkModule)
+    importAll(
+        networkModule,
+        repositoryModule
+    )
 }
