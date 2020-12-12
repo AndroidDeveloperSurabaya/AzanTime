@@ -31,6 +31,7 @@ kotlin {
     val serializationVersion = "1.0.0-RC"
     val sqlDelightVersion    = "1.4.4"
     val coroutinesVersion = "1.3.9-native-mt"
+    val kodeinVersion = "7.1.0"
 
     sourceSets {
         val commonMain by getting {
@@ -41,6 +42,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-serialization:$ktorVersion")
                 implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.1.0")
+                implementation("org.kodein.di:kodein-di:$kodeinVersion")
             }
         }
         val commonTest by getting {
@@ -85,6 +87,17 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        kotlinOptions {
+            jvmTarget = "1.8"
         }
     }
 }

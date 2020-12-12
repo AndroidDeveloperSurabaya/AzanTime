@@ -1,4 +1,4 @@
-package com.example.azantime.shared
+package com.example.azantime.shared.entity
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -6,13 +6,13 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AzanEntity(
 
-	@SerialName("code")
+    @SerialName("code")
 	val code: Int = 0,
 
-	@SerialName("data")
+    @SerialName("data")
 	val data: Data? =null,
 
-	@SerialName("status")
+    @SerialName("status")
 	val status: String? = null
 )
 
@@ -91,41 +91,41 @@ data class Offset(
 @Serializable
 data class Meta(
 
-	@SerialName("method")
+    @SerialName("method")
 	val method: Method? = null,
 
-	@SerialName("offset")
+    @SerialName("offset")
 	val offset: Offset? = null,
 
-	@SerialName("school")
+    @SerialName("school")
 	val school: String? = null,
 
-	@SerialName("timezone")
+    @SerialName("timezone")
 	val timezone: String? = null,
 
-	@SerialName("midnightMode")
+    @SerialName("midnightMode")
 	val midnightMode: String? = null,
 
-	@SerialName("latitude")
+    @SerialName("latitude")
 	val latitude: Double? = null,
 
-	@SerialName("longitude")
+    @SerialName("longitude")
 	val longitude: Double? = null,
 
-	@SerialName("latitudeAdjustmentMethod")
+    @SerialName("latitudeAdjustmentMethod")
 	val latitudeAdjustmentMethod: String? = null
 )
 
 @Serializable
 data class Data(
 
-	@SerialName("date")
+    @SerialName("date")
 	val date: Date? = null,
 
-	@SerialName("meta")
+    @SerialName("meta")
 	val meta: Meta? = null,
 
-	@SerialName("timings")
+    @SerialName("timings")
 	val timings: Timings? = null
 )
 

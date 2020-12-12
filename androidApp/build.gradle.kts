@@ -18,6 +18,7 @@ repositories {
 val ktorVersion = "1.4.0"
 val serializationVersion = "1.0.0-RC"
 val sqlDelightVersion    = "1.4.4"
+val kodeinVersion = "7.1.0"
 
 dependencies {
     implementation(project(":shared"))
@@ -34,6 +35,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
     implementation("io.ktor:ktor-client-serialization:$ktorVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.1.0")
+
+    implementation("org.kodein.di:kodein-di-framework-android-x:$kodeinVersion")
 }
 android {
     compileSdkVersion(29)
@@ -49,7 +52,17 @@ android {
             isMinifyEnabled = false
         }
     }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     buildFeatures {
-        dataBinding = true
+        viewBinding = true
     }
 }
