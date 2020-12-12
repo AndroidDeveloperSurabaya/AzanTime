@@ -15,6 +15,7 @@ extension NSDate {
 class PrayerTimeViewModel: ObservableObject {
     
     let useCase = GetPrayerTimesUseCase()
+    let locationUseCase = GetLocationUseCase()
     
     @Published var error: Error? = nil
     @Published var data: AzanEntity? = nil
@@ -34,6 +35,13 @@ class PrayerTimeViewModel: ObservableObject {
                 self.isLoading = false
                 self.error = error
                 self.data = data
+        })
+        locationUseCase.execute(
+            input: UseCaseNone(),
+            completionHandler: { (data: LocationEntity?, error: Error?) -> Void in
+                debugPrint("Get Location")
+                debugPrint(error)
+                debugPrint(data)
         })
     }
     
