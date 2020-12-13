@@ -17,7 +17,9 @@ import com.example.azantime.androidApp.utils.TimePrayConstant.ISHA_TIME_PRAY_POS
 import com.example.azantime.androidApp.utils.TimePrayConstant.MAGHRIB
 import com.example.azantime.androidApp.utils.TimePrayConstant.MAGHRIB_TIME_PRAY_POSITION
 import com.example.azantime.shared.entity.Timings
+import com.example.azantime.shared.usecase.GetLocationUseCase
 import com.example.azantime.shared.usecase.GetPrayerTimesUseCase
+import com.example.azantime.shared.usecase.UseCase
 import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
@@ -28,9 +30,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     var latitude = -7.2756141
     var longitude = -112.642642
 
-    private val useCase: GetPrayerTimesUseCase = GetPrayerTimesUseCase()
+    private val useCase: GetPrayerTimesUseCase by lazy { GetPrayerTimesUseCase() }
+    private val locationUseCase: GetLocationUseCase by lazy { GetLocationUseCase() }
 
     override fun onMain() {
+        lifecycleScope.launchWhenCreated {
+            val location = locationUseCase.execute(UseCase.None)
+            Toast.makeText(
+                this@MainActivity,
+                "${location.latitude}, ${location.longitude}",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
         getDataAzan()
     }
 
