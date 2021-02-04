@@ -52,7 +52,9 @@ struct TabBarIcon: View {
         }
         .padding(.horizontal, -4)
         .onTapGesture {
-            viewRouter.currentPage = page
+            if (viewRouter.currentPage != page) {
+                viewRouter.currentPage = page
+            }
         }
     }
     

@@ -11,12 +11,32 @@ import SwiftUI
 struct PrayerListTab: View {
     
     @ObservedObject var viewModel: PrayerTimeViewModel = PrayerTimeViewModel()
+    @State var currentPageIndex = 0
+    
     let prays = [
         ["name": "Fajr", "time": "04:35"],
         ["name": "Dhuhr", "time": "11.45"],
         ["name": "Ashr", "time": "03.12"],
         ["name": "Maghrib", "time": "17.50"],
         ["name": "Isya", "time": "19.14"],
+    ]
+    
+    var subViews = [
+        UIHostingController(rootView: PraySubView(prays: [
+            ["name": "Fajr", "time": "04:35"],
+            ["name": "Dhuhr", "time": "11.45"],
+            ["name": "Ashr", "time": "03.12"],
+            ["name": "Maghrib", "time": "17.50"],
+            ["name": "Isya", "time": "19.14"],
+        ])),
+
+        UIHostingController(rootView: PraySubView(prays: [
+            ["name": "Fajr", "time": "04:11"],
+            ["name": "Dhuhr", "time": "11.11"],
+            ["name": "Ashr", "time": "03.11"],
+            ["name": "Maghrib", "time": "17.11"],
+            ["name": "Isya", "time": "19.11"],
+        ])),
     ]
     
     var body: some View {
@@ -51,23 +71,34 @@ struct PrayerListTab: View {
         
             Spacer()
             
-            VStack {
-                Text("February 4 2021, 27 Rabiul Awal 1442")
-                    .font(.callout)
-                    .foregroundColor(Color("ColorAccent"))
-                
-                List {
-                    ForEach(prays, id: \.self) { pray in
-                        PrayItemList(pray: pray)
-                    }
-                }.padding()
-                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 3, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            }
+            PageViewController(currentPageIndex: $currentPageIndex, viewControllers: subViews).frame(height: UIScreen.main.bounds.height / 2.5)
+            PageControl(numberOfPages: subViews.count, currentPageIndex: $currentPageIndex)
             
             Spacer()
+            
         }.onAppear {
             self.viewModel.getData()
         }
+    }
+}
+
+struct PraySubView: View {
+    
+    @State var prays: Array<Dictionary<String, String>>
+    
+    var body: some View {
+        VStack {
+            Text("February 4 2021, 27 Rabiul Awal 1442")
+                .font(.callout)
+                .foregroundColor(Color("ColorAccent"))
+            
+            List {
+                ForEach(prays, id: \.self) { pray in
+                    PrayItemList(pray: pray)
+                }
+            }
+        }.padding()
+        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2.5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
     }
 }
 
@@ -84,7 +115,7 @@ struct PrayItemList: View {
             Text(pray["name"] ?? "SUNRISE").font(.system(size: 18))
                 .foregroundColor(Color("ColorAccent"))
             Spacer()
-            Text("03:12").font(.system(size: 18))
+            Text(pray["time"] ?? "03:12").font(.system(size: 18))
                 .foregroundColor(Color("ColorAccent"))
             Image("volume_on")
         }
