@@ -1,77 +1,65 @@
 import SwiftUI
-import shared
-import Foundation
-
-func greet() -> String {
-    return "'OK'"
-}
-
-extension NSDate {
-    func currentTimeMillis() -> Int64 {
-        return Int64(self.timeIntervalSince1970 * 1000)
-    }
-}
-
-class PrayerTimeViewModel: ObservableObject {
-    
-    let useCase = GetPrayerTimesUseCase()
-    let locationUseCase = GetLocationUseCase()
-    
-    @Published var error: Error? = nil
-    @Published var data: AzanEntity? = nil
-    @Published var isLoading: Bool = false
- 
-    func getData() {
-        debugPrint("Get Data")
-        self.isLoading = true
-        let timestamp: Int64 = NSDate().currentTimeMillis()
-        let latitude: Double = -7.2756141
-        let longitude: Double = -112.642642
-        useCase.execute(
-            input: GetPrayerTimesUseCase.Input(timestamp: timestamp, latitude: latitude, longitude: longitude),
-            completionHandler: { (data: AzanEntity?, error: Error?) -> Void in
-                debugPrint(error)
-                debugPrint(data)
-                self.isLoading = false
-                self.error = error
-                self.data = data
-        })
-        locationUseCase.execute(
-            input: UseCaseNone(),
-            completionHandler: { (data: LocationEntity?, error: Error?) -> Void in
-                debugPrint("Get Location")
-                debugPrint(error)
-                debugPrint(data)
-        })
-    }
-    
-}
+import CoreLocation.CLLocationManager
 
 struct ContentView: View {
     
-    @ObservedObject var viewModel: PrayerTimeViewModel = PrayerTimeViewModel()
+    @ObservedObject var viewRouter: ViewRouter
     
     var body: some View {
-        Group {
-            if (viewModel.isLoading) {
-                Text("Loading")
-            } else {
-                if (viewModel.error != nil) {
-                    Text(viewModel.error.debugDescription)
-                } else if (viewModel.data != nil){
-                    Text(String(format: "Status: %d", viewModel.data!.code))
-                } else {
-                    Text("Unknown")
+        GeometryReader { geometry in
+            VStack {
+                Spacer()
+                switch viewRouter.currentPage {
+                case .prayer:
+                    PrayerListTab()
+                case .setting:
+                    SettingTab()
+                }
+                Spacer()
+                ZStack {
+                    HStack {
+                        TabBarIcon(viewRouter: viewRouter, width: geometry.size.width/2, height: geometry.size.height/25,
+                                   icon: "clock", page: .prayer)
+                        Spacer()
+                        TabBarIcon(viewRouter: viewRouter, width: geometry.size.width/2, height: geometry.size.height/25,
+                                   icon: "gearshape", page: .setting)
+                    }
                 }
             }
-        }.onAppear {
-            self.viewModel.getData()
         }
     }
 }
 
+struct TabBarIcon: View {
+    
+    @ObservedObject var viewRouter: ViewRouter
+    @State var width: CGFloat = 100
+    @State var height: CGFloat = 50
+    @State var icon: String = ""
+    @State var page: Router
+    
+    var body: some View {
+        VStack {
+            Rectangle()
+                .foregroundColor(Color("ColorAccent"))
+                .frame(height: 5)
+            Image(systemName: icon)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: width, height: height)
+                .padding(.top, 10)
+                .foregroundColor(viewRouter.currentPage == page ? Color("ColorAccent") : .secondary)
+        }
+        .padding(.horizontal, -4)
+        .onTapGesture {
+            viewRouter.currentPage = page
+        }
+    }
+    
+}
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(viewRouter: ViewRouter())
     }
 }
