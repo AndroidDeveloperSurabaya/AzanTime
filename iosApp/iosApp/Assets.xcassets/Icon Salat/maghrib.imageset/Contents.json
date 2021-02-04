@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "maghrib-big.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

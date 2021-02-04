@@ -27,10 +27,10 @@ kotlin {
         }
     }
 
-    val ktorVersion = "1.4.0"
-    val serializationVersion = "1.0.0-RC"
+    val ktorVersion = "1.5.1"
+    val serializationVersion = "1.0.1"
     val sqlDelightVersion    = "1.4.4"
-    val coroutinesVersion = "1.3.9-native-mt"
+    val coroutinesVersion = "1.4.2-native-mt"
     val kodeinVersion = "7.1.0"
 
     sourceSets {
