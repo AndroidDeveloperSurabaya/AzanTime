@@ -6,7 +6,7 @@ AzanTime merupakan aplikasi pengingat Azan yang dibuat menggunakan KMM atau Kotl
 <br>
 
 <p align=center>
-  <img src="/assets/img/readme-banner.jpg" align=center>
+  <img src="assets/img/readme-banner.png" align=center>
 </p>
 
 <br>
@@ -14,7 +14,7 @@ AzanTime merupakan aplikasi pengingat Azan yang dibuat menggunakan KMM atau Kotl
 <p align=center>
   <img src="https://img.shields.io/github/stars/AndroidDeveloperSurabaya/AzanTime?style=flat-square">
   <img src="https://img.shields.io/github/forks/AndroidDeveloperSurabaya/AzanTime?style=flat-square">
-  <img src="https://img.shields.io/github/commit-activity/m/AndroidDeveloperSurabaya/AzanTime?label=commit&style=flat-square">
+<!--   <img src="https://img.shields.io/github/commit-activity/m/AndroidDeveloperSurabaya/AzanTime?label=commit&style=flat-square"> -->
   <img src="https://img.shields.io/github/issues/AndroidDeveloperSurabaya/AzanTime?style=flat-square">
   <img src="https://img.shields.io/github/license/AndroidDeveloperSurabaya/AzanTime?style=flat-square">
   <img src="https://img.shields.io/github/repo-size/AndroidDeveloperSurabaya/AzanTime?style=flat-square">
