@@ -8,8 +8,8 @@
 
 import Foundation
 
-extension NSDate {
+extension Date {
     func currentTimeMillis() -> Int64 {
-        return Int64(self.timeIntervalSince1970 * 1000)
+        return Int64((self.timeIntervalSince1970))
     }
 }
