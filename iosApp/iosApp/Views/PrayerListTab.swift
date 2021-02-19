@@ -7,77 +7,110 @@
 //
 
 import SwiftUI
+import shared
+import Foundation
 
 struct PrayerListTab: View {
     
     @ObservedObject var viewModel: PrayerTimeViewModel = PrayerTimeViewModel()
+    @ObservedObject var notificationManager = NotificationManager()
     @State var currentPageIndex = 0
     
-    let prays = [
-        ["name": "Fajr", "time": "04:35"],
-        ["name": "Dhuhr", "time": "11.45"],
-        ["name": "Ashr", "time": "03.12"],
-        ["name": "Maghrib", "time": "17.50"],
-        ["name": "Isya", "time": "19.14"],
-    ]
+    @State private var isLoading: Bool = true
+    @State private var rotation: Bool = false
     
-    var subViews = [
-        UIHostingController(rootView: PraySubView(prays: [
-            ["name": "Fajr", "time": "04:35"],
-            ["name": "Dhuhr", "time": "11.45"],
-            ["name": "Ashr", "time": "03.12"],
-            ["name": "Maghrib", "time": "17.50"],
-            ["name": "Isya", "time": "19.14"],
-        ])),
-
-        UIHostingController(rootView: PraySubView(prays: [
-            ["name": "Fajr", "time": "04:11"],
-            ["name": "Dhuhr", "time": "11.11"],
-            ["name": "Ashr", "time": "03.11"],
-            ["name": "Maghrib", "time": "17.11"],
-            ["name": "Isya", "time": "19.11"],
-        ])),
-    ]
+    @State var subViews: Array<Dictionary<String, String>> = []
+    @State var timedate: String = ""
     
     var body: some View {
         VStack {
-            HStack {
-                Image(systemName: "location.fill")
-                    .foregroundColor(Color("ColorAccent"))
-                Text("Surabaya, Indonesia")
-                    .font(.footnote)
-                    .foregroundColor(Color("ColorAccent"))
-            }
-            Spacer()
-            HStack {
-                Image("maghrib")
-                    .resizable()
-                    .frame(width: 100, height: 100, alignment: .center)
-                    .padding(.horizontal)
-                
-                VStack {
-                    Text("Maghrib".uppercased())
-                        .font(.largeTitle)
+            if (isLoading) {
+                Circle()
+                    .trim(from: 0, to: 0.7)
+                    .stroke(Color("ColorAccent"), lineWidth: 5)
+                    .frame(width: 100, height: 100)
+                    .rotationEffect(Angle(degrees: rotation ? 360 : 0))
+                    .animation(Animation.linear(duration: 0.75).repeatForever(autoreverses: false))
+                    .onAppear() {
+                        self.rotation.toggle()
+                    }
+            } else {
+                HStack {
+                    Image(systemName: "location.fill")
                         .foregroundColor(Color("ColorAccent"))
-                        .bold()
-                        .padding(.vertical, 4)
-                    
-                    Text("3 Hours 14 minutes remaining")
-                        .font(.body).foregroundColor(Color("ColorAccent"))
-                        .multilineTextAlignment(.center)
+                    Text("Surabaya, Indonesia")
+                        .font(.footnote)
+                        .foregroundColor(Color("ColorAccent"))
                 }
-                .padding(.horizontal)
+                Spacer()
+                HStack {
+                    Image("maghrib")
+                        .resizable()
+                        .frame(width: 100, height: 100, alignment: .center)
+                        .padding(.horizontal)
+                    
+                    VStack {
+                        Text(self.viewModel.timeToNextPray?.uppercased() ?? "maghrib".uppercased())
+                            .font(.largeTitle)
+                            .foregroundColor(Color("ColorAccent"))
+                            .bold()
+                            .padding(.vertical, 4)
+                        
+                        Text("3 Hours 14 minutes remaining")
+                            .font(.body).foregroundColor(Color("ColorAccent"))
+                            .multilineTextAlignment(.center)
+                    }
+                    .padding(.horizontal)
+                }
+            
+                Spacer()
+                
+                PraySubView(prays: subViews, timedate: "Februari 17 2021")
+                
+                PageControl(numberOfPages: 1, currentPageIndex: $currentPageIndex)
+                
+                Spacer()
             }
-        
-            Spacer()
-            
-            PageViewController(currentPageIndex: $currentPageIndex, viewControllers: subViews).frame(height: UIScreen.main.bounds.height / 2.5)
-            PageControl(numberOfPages: subViews.count, currentPageIndex: $currentPageIndex)
-            
-            Spacer()
-            
         }.onAppear {
-            self.viewModel.getData()
+            self.viewModel.getData() { result in
+                if (result == 200) {
+                    let pray = self.viewModel.data?.data?.timings
+                    var checked = false
+                    
+                    let currentDate = Date()
+                    let formatter = DateFormatter()
+                    formatter.timeZone = .current
+                    formatter.dateFormat = "HH:mm"
+                    let currentTime = formatter.string(from: currentDate).split(separator: ":")
+                    let current = Calendar.current.date(bySettingHour: Int(currentTime[0]) ?? 0, minute: Int(currentTime[1]) ?? 0, second: 0, of: Date()) ?? Date()
+                    
+                    let times = ["fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha"]
+                    
+                    for time in times {
+                        let timeParse = pray?.value(forKey: time) as! String
+                        let timeSplit = timeParse.split(separator: ":")
+
+                        self.subViews.append(["name": time , "time": timeParse])
+                        
+                        if !checked {
+                            let dateCheck = Calendar.current.date(bySettingHour: Int(timeSplit[0]) ?? 0, minute: Int(timeSplit[1]) ?? 0, second: 0, of: Date()) ?? Date()
+                            
+                            if dateCheck >= current {
+                                let timeToLaunch = dateCheck.currentTimeMillis() - current.currentTimeMillis()
+                                self.viewModel.timeToNextPray = time
+
+                                DispatchQueue.global().async {
+                                    self.notificationManager.sendNotification(title: "Time To Pray \(time.uppercased())", subTitle: nil, body: "Gas", launchIn: Double(timeToLaunch))
+                                }
+                                checked = true
+                            }
+                        }
+
+                    }
+                    
+                    self.isLoading.toggle()
+                }
+            }
         }
     }
 }
@@ -85,10 +118,11 @@ struct PrayerListTab: View {
 struct PraySubView: View {
     
     @State var prays: Array<Dictionary<String, String>>
+    @State var timedate: String
     
     var body: some View {
         VStack {
-            Text("February 4 2021, 27 Rabiul Awal 1442")
+            Text(timedate)
                 .font(.callout)
                 .foregroundColor(Color("ColorAccent"))
             
@@ -112,7 +146,8 @@ struct PrayItemList: View {
                 .resizable()
                 .frame(width: 25, height: 25, alignment: .center)
                 .padding(.horizontal, 4)
-            Text(pray["name"] ?? "SUNRISE").font(.system(size: 18))
+            Text(pray["name"]?.uppercased() ?? "SUNRISE")
+                .font(.system(size: 18))
                 .foregroundColor(Color("ColorAccent"))
             Spacer()
             Text(pray["time"] ?? "03:12").font(.system(size: 18))

@@ -8,17 +8,21 @@ import platform.CoreLocation.CLLocationManager
 import platform.CoreLocation.kCLLocationAccuracyBest
 import kotlin.coroutines.resume
 
-
 class NSSLocationRepository : LocationRepository {
 
     private val locationManager: CLLocationManager by lazy { CLLocationManager() }
+    private var runner: Boolean = true
 
     override suspend fun getCurrentLocation(): LocationEntity {
         return suspendCancellableCoroutine { continuation ->
             locationManager.setDelegate(LocationManagerDelegates { locations ->
                 locationManager.stopUpdatingLocation()
+
                 locations.lastOrNull()?.coordinate?.useContents {
-                    continuation.resume(LocationEntity(latitude, longitude))
+                    if (runner) {
+                        continuation.resume(LocationEntity(latitude, longitude))
+                        runner = false
+                    }
                 }
             })
             locationManager.desiredAccuracy = kCLLocationAccuracyBest

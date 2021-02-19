@@ -12,15 +12,13 @@ import kotlin.coroutines.resume
 class NSSLocationRepository : LocationRepository {
 
     private val locationManager: CLLocationManager by lazy { CLLocationManager() }
-    private var authorizationStatus: CLAuthorizationStatus = 0
     private var runner: Boolean = true
 
     override suspend fun getCurrentLocation(): LocationEntity {
         return suspendCancellableCoroutine { continuation ->
-            locationManager.setDelegate(LocationManagerDelegates { locations, status ->
+            locationManager.setDelegate(LocationManagerDelegates { locations ->
                 locationManager.stopUpdatingLocation()
 
-                authorizationStatus = status
                 locations.lastOrNull()?.coordinate?.useContents {
                     if (runner) {
                         continuation.resume(LocationEntity(latitude, longitude))

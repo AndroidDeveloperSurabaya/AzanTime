@@ -17,10 +17,12 @@ class PrayerTimeViewModel: ObservableObject {
     @Published var error: Error? = nil
     @Published var data: AzanEntity? = nil
     @Published var isLoading: Bool = false
+    @Published var nextPray: String? = nil
+    @Published var timeToNextPray: String? = nil
  
-    func getData() {
+    func getData(completion: @escaping ((Int) -> Void)) {
         self.isLoading = true
-        let timestamp: Int64 = NSDate().currentTimeMillis()
+        let timestamp: Int64 = Date().currentTimeMillis()
         var latitude: Double = -7.2756141
         var longitude: Double = -112.642642
         
@@ -34,6 +36,8 @@ class PrayerTimeViewModel: ObservableObject {
                     self.isLoading = false
                     self.error = error
                     self.data = data
+                    
+                    completion(200)
             })
         }
     }
